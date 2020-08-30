@@ -1,20 +1,21 @@
 import os
 import json
 import logging
+import sys
+
 
 CUR_DIR = os.path.dirname(__file__)
 DATA_FILE = os.path.join(CUR_DIR, "data", "movies.json").replace("\\", "/")
-print(DATA_FILE)
 
 
 def get_movies():
     with open(DATA_FILE, 'r') as f:
         movies_titles = json.load(f)
 
-    return [Movie(movie_title) for movie_title in movies_titles]
+    return [Film(movie_title) for movie_title in movies_titles]
 
 
-class Movie:
+class Film:
 
     def __init__(self, title):
         self.title = title.title()
@@ -48,8 +49,3 @@ class Movie:
             movies.remove(self.title)
             self._write_movies(movies)
             return True
-
-
-if __name__ == "__main__":
-    movies = get_movies()
-    print(movies)
